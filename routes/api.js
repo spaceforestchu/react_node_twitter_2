@@ -17,9 +17,7 @@ router.get('/:resource', function(req, res, next) {
     res.json({confirmation: 'fail', resource: 'Invalid Resource'});
     return;
   }
-
-
-
+  
   controller.get(req.query).then(function(results) {
     //console.log(results[0].tweets);
     res.json({confirmation: 'success', results: results});

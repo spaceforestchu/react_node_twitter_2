@@ -22689,6 +22689,7 @@ var Tweets = function (_Component) {
       //console.log(this.props.tweet.text);
       var text = this.props.tweet.text;
       var profile = this.props.tweet.user.profile_image_url;
+      var created = this.props.tweet.created_at;
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -22698,11 +22699,24 @@ var Tweets = function (_Component) {
           _react2.default.createElement(
             'div',
             { style: _style2.default.borderStyle },
-            _react2.default.createElement('img', { style: _style2.default.imageStyle, src: profile }),
             _react2.default.createElement(
-              'span',
-              { style: _style2.default.spanStyle },
-              text
+              'div',
+              null,
+              _react2.default.createElement('img', { style: _style2.default.imageStyle, src: profile }),
+              _react2.default.createElement(
+                'p',
+                { style: _style2.default.paragraphStyle },
+                text
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement(
+                'span',
+                { style: _style2.default.createdStyle },
+                created
+              )
             )
           )
         ),
@@ -24759,11 +24773,17 @@ exports.default = {
     marginLeft: 20,
     float: 'left'
   },
-  spanStyle: {
+  paragraphStyle: {
     marginLeft: 10,
-    paddingTop: 40,
-    paddingBottom: 40,
-    float: 'left'
+    paddingTop: 30,
+    float: 'left',
+    width: '1005px',
+    height: '50px'
+  },
+  createdStyle: {
+    float: 'right',
+    marginRight: '20px',
+    marginTop: '9px'
   }
 };
 

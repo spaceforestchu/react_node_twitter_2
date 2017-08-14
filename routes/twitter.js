@@ -21,7 +21,10 @@ var twitterClient = function(action, query, callback) {
 
        methods = 'statuses/user_timeline';
        query_variable = query;
-       params = {screen_name: query_variable};
+       params = {
+         screen_name: query_variable,
+         count: 100
+       };
 
     } else if (action == 'search') {
 

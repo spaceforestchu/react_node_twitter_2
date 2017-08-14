@@ -12,10 +12,16 @@ export default {
     marginLeft: 20,
     float: 'left'
   },
-  spanStyle: {
+  paragraphStyle: {
     marginLeft: 10,
-    paddingTop:40,
-    paddingBottom: 40,
-    float: 'left'
+    paddingTop: 30,
+    float: 'left',
+    width: '1005px',
+    height: '50px'
+  },
+  createdStyle: {
+    float: 'right',
+    marginRight: '20px',
+    marginTop: '9px'
   }
 }
