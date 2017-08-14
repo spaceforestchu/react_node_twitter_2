@@ -23,7 +23,7 @@ var twitterClient = function(action, query, callback) {
        query_variable = query;
        params = {
          screen_name: query_variable,
-         count: 100
+         count: 300
        };
 
     } else if (action == 'search') {

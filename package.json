@@ -16,6 +16,7 @@
     "morgan": "~1.7.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-infinite-scroll": "^0.1.5",
     "serve-favicon": "~2.3.0",
     "superagent": "^3.5.2",
     "twitter": "^1.7.1"

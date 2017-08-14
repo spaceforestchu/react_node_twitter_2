@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import style from './style';
 
+
 class Tweets extends Component {
   render() {
     //console.log(this.props.tweet.text);
@@ -18,7 +19,6 @@ class Tweets extends Component {
             <div>
               <span style={style.createdStyle}>{created}</span>
             </div>
-
           </div>
 
         </div>
