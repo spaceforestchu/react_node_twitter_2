@@ -6,7 +6,6 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1 style={{textAlign: 'center'}}>Lenox Hill Tweets Hospital</h1>
         <Tweet />
       </div>
 

@@ -22502,11 +22502,6 @@ var Home = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(
-          'h1',
-          { style: { textAlign: 'center' } },
-          'Lenox Hill Tweets Hospital'
-        ),
         _react2.default.createElement(_containers.Tweet, null)
       );
     }
@@ -22556,7 +22551,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _view = __webpack_require__(189);
 
-var _utils = __webpack_require__(191);
+var _utils = __webpack_require__(192);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22582,8 +22577,8 @@ var Tweet = function (_Component) {
   }
 
   _createClass(Tweet, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       var _this2 = this;
 
       _utils.APIManager.get('/api/tweet', null, function (err, response) {
@@ -22604,6 +22599,16 @@ var Tweet = function (_Component) {
     key: 'render',
     value: function render() {
 
+      var bannerPicture = '';
+
+      if (this.state.data[0] === undefined) {
+        bannerPicture = '';
+      } else {
+        bannerPicture = this.state.data[0].user.profile_banner_url;
+      }
+
+      var link = '';
+
       var tweetItems = this.state.data.map(function (tweet, index) {
         return _react2.default.createElement(
           'li',
@@ -22615,6 +22620,7 @@ var Tweet = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(_view.Header, { bannerPicture: bannerPicture }),
         tweetItems
       );
     }
@@ -22635,15 +22641,20 @@ exports.default = Tweet;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Tweets = undefined;
+exports.Header = exports.Tweets = undefined;
 
 var _Tweets = __webpack_require__(190);
 
 var _Tweets2 = _interopRequireDefault(_Tweets);
 
+var _Header = __webpack_require__(201);
+
+var _Header2 = _interopRequireDefault(_Header);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Tweets = _Tweets2.default;
+exports.Header = _Header2.default;
 
 /***/ }),
 /* 190 */
@@ -22661,10 +22672,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(24);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _style = __webpack_require__(200);
-
-var _style2 = _interopRequireDefault(_style);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22684,43 +22691,64 @@ var Tweets = function (_Component) {
   }
 
   _createClass(Tweets, [{
-    key: 'render',
+    key: "render",
     value: function render() {
-      //console.log(this.props.tweet.text);
       var text = this.props.tweet.text;
-      var profile = this.props.tweet.user.profile_image_url;
+      var profileImage = this.props.tweet.user.profile_image_url;
       var created = this.props.tweet.created_at;
+
       return _react2.default.createElement(
-        'div',
-        { className: 'container' },
+        "section",
+        { id: "content" },
         _react2.default.createElement(
-          'div',
-          { className: 'row' },
+          "div",
+          { className: "container clearfix" },
           _react2.default.createElement(
-            'div',
-            { style: _style2.default.borderStyle },
+            "div",
+            { className: "heading-block center" },
             _react2.default.createElement(
-              'div',
+              "h1",
               null,
-              _react2.default.createElement('img', { style: _style2.default.imageStyle, src: profile }),
-              _react2.default.createElement(
-                'p',
-                { style: _style2.default.paragraphStyle },
-                text
-              )
-            ),
+              "Recent Tweets"
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { id: "posts" },
             _react2.default.createElement(
-              'div',
-              null,
+              "div",
+              { className: "entry clearfix" },
               _react2.default.createElement(
-                'span',
-                { style: _style2.default.createdStyle },
-                created
+                "ul",
+                { className: "entry-meta clearfix" },
+                _react2.default.createElement(
+                  "li",
+                  null,
+                  _react2.default.createElement("i", { className: "icon-calendar3" }),
+                  created
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "entry-content" },
+                _react2.default.createElement(
+                  "p",
+                  null,
+                  " ",
+                  _react2.default.createElement("img", { src: profileImage, style: { marginRight: 25 } }),
+                  " ",
+                  text
+                ),
+                _react2.default.createElement(
+                  "a",
+                  { href: "https://twitter.com/lenoxhill", className: "more-link" },
+                  "Read More"
+                )
               )
             )
-          )
-        ),
-        _react2.default.createElement('br', null)
+          ),
+          "\xDF"
+        )
       );
     }
   }]);
@@ -22731,7 +22759,8 @@ var Tweets = function (_Component) {
 exports.default = Tweets;
 
 /***/ }),
-/* 191 */
+/* 191 */,
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22742,7 +22771,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.APIManager = undefined;
 
-var _APIManager = __webpack_require__(192);
+var _APIManager = __webpack_require__(193);
 
 var _APIManager2 = _interopRequireDefault(_APIManager);
 
@@ -22751,7 +22780,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.APIManager = _APIManager2.default;
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22761,7 +22790,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _superagent = __webpack_require__(193);
+var _superagent = __webpack_require__(194);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -22783,7 +22812,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -22800,12 +22829,12 @@ if (typeof window !== 'undefined') { // Browser window
   root = this;
 }
 
-var Emitter = __webpack_require__(194);
-var RequestBase = __webpack_require__(195);
+var Emitter = __webpack_require__(195);
+var RequestBase = __webpack_require__(196);
 var isObject = __webpack_require__(50);
-var isFunction = __webpack_require__(196);
-var ResponseBase = __webpack_require__(197);
-var shouldRetry = __webpack_require__(199);
+var isFunction = __webpack_require__(197);
+var ResponseBase = __webpack_require__(198);
+var shouldRetry = __webpack_require__(200);
 
 /**
  * Noop.
@@ -23722,7 +23751,7 @@ request.put = function(url, data, fn){
 
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -23891,7 +23920,7 @@ Emitter.prototype.hasListeners = function(event){
 
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -24488,7 +24517,7 @@ RequestBase.prototype._setTimeouts = function() {
 
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -24509,7 +24538,7 @@ module.exports = isFunction;
 
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -24517,7 +24546,7 @@ module.exports = isFunction;
  * Module dependencies.
  */
 
-var utils = __webpack_require__(198);
+var utils = __webpack_require__(199);
 
 /**
  * Expose `ResponseBase`.
@@ -24648,7 +24677,7 @@ ResponseBase.prototype._setStatusProperties = function(status){
 
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports) {
 
 
@@ -24721,7 +24750,7 @@ exports.cleanHeader = function(header, shouldStripCookie){
 };
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports) {
 
 var ERROR_CODES = [
@@ -24750,7 +24779,7 @@ module.exports = function shouldRetry(err, res) {
 
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24759,33 +24788,54 @@ module.exports = function shouldRetry(err, res) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = {
-  borderStyle: {
-    width: '100%',
-    backgroundColor: '#E8E8E8',
-    height: '100px',
-    borderRadius: 20
-  },
-  imageStyle: {
-    marginTop: 25,
-    borderRadius: 20,
-    marginRight: 6,
-    marginLeft: 20,
-    float: 'left'
-  },
-  paragraphStyle: {
-    marginLeft: 10,
-    paddingTop: 30,
-    float: 'left',
-    width: '1005px',
-    height: '50px'
-  },
-  createdStyle: {
-    float: 'right',
-    marginRight: '20px',
-    marginTop: '9px'
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(24);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Header = function (_Component) {
+  _inherits(Header, _Component);
+
+  function Header() {
+    _classCallCheck(this, Header);
+
+    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
   }
-};
+
+  _createClass(Header, [{
+    key: "render",
+    value: function render() {
+      var bannerPicture = this.props.bannerPicture;
+      return _react2.default.createElement(
+        "div",
+        { className: "swiper-container swiper-parent" },
+        _react2.default.createElement(
+          "div",
+          { className: "swiper-wrapper" },
+          _react2.default.createElement(
+            "div",
+            { className: "swiper-slide dark" },
+            _react2.default.createElement("img", { src: bannerPicture, style: style.bannerStyle })
+          )
+        )
+      );
+    }
+  }]);
+
+  return Header;
+}(_react.Component);
+
+exports.default = Header;
 
 /***/ })
 /******/ ]);

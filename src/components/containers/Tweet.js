@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Tweets} from '../view';
+import {Tweets, Header} from '../view';
 import { APIManager } from '../../utils';
 
 
@@ -14,7 +14,7 @@ class Tweet extends Component {
   }
 
 
-  componentDidMount(){
+  componentWillMount(){
     APIManager
       .get('/api/tweet', null, (err, response) => {
         if (err) {
@@ -34,6 +34,16 @@ class Tweet extends Component {
 
   render(){
 
+    let  bannerPicture = '';
+
+    if (this.state.data[0] === undefined) {
+      bannerPicture = ''
+    } else {
+      bannerPicture = this.state.data[0].user.profile_banner_url
+    }
+
+    let link = '';
+
     const tweetItems = this.state.data.map( (tweet, index) => {
       return (
         <li key={index} style={{listStyle: 'none'}}>
@@ -45,6 +55,7 @@ class Tweet extends Component {
 
     return(
       <div>
+        <Header bannerPicture={bannerPicture}/>
         {tweetItems}
       </div>
     )
